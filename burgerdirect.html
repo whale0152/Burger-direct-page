@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flame-Grilled Direct — Fast Delivery</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Flame&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .brand-font { font-weight: 800; letter-spacing: -0.02em; }
+    </style>
+</head>
+<body class="bg-[#FDFBFAF7] text-[#2A1B14]" x-data="{ cartItems: 0, selectedCategory: 'burgers', checkoutStep: 1, fulfillmentMethod: '' }">
+
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-sm transition-all duration-200">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer">
+                <span class="bg-orange-600 text-white p-2 rounded-xl flex items-center justify-center w-9 h-9">
+                    <i class="fa-solid fa-fire text-base"></i>
+                </span>
+                <span class="text-xl brand-font tracking-tight text-orange-600">BURGER<span class="text-amber-500">DIRECT</span></span>
+            </div>
+
+            <div class="hidden sm:flex items-center gap-2 bg-amber-50 hover:bg-amber-100/80 px-3 py-1.5 rounded-full border border-amber-200/60 cursor-pointer transition text-sm text-amber-900 font-medium">
+                <i class="fa-solid fa-location-dot text-orange-500"></i>
+                <span>Deliver to: <strong class="text-orange-600">Dhaka, Bangladesh</strong></span>
+                <i class="fa-solid fa-chevron-down text-xs opacity-60"></i>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="#menu-explorer" class="hidden md:inline-flex bg-amber-100 hover:bg-amber-200 text-amber-900 px-4 py-2 rounded-xl text-sm font-bold transition">
+                    View Menu
+                </a>
+                <a href="#checkout-flow" class="relative bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-sm hover:shadow flex items-center gap-2 transition">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="hidden xs:inline">Order Now</span>
+                    <span class="bg-white text-orange-600 text-xs px-1.5 py-0.5 rounded-full font-extrabold" x-text="cartItems">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative overflow-hidden bg-gradient-to-b from-amber-50/50 to-white pt-8 pb-16 md:py-24 border-b border-amber-100/40">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 text-center md:text-left space-y-6">
+                <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-xs font-bold border border-orange-100 uppercase tracking-wide">
+                    <i class="fa-solid fa-bolt-lightning"></i> 15-Minute Flash Delivery Optimized
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl brand-font text-[#2A1B14] leading-[1.1]">
+                    Flame-Grilled <br class="hidden sm:inline"> Perfection, Delivered <span class="text-orange-600 underline decoration-amber-400 decoration-wavy decoration-2">Direct</span>.
+                </h1>
+                <p class="text-base sm:text-lg text-amber-900/80 max-w-xl mx-auto md:mx-0 font-normal">
+                    Skipping the middleman means hotter food, faster checkout, and zero hidden service surcharges. Straight from our grill to your hands.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-2">
+                    <a href="#menu-explorer" class="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white text-center px-8 py-4 rounded-2xl font-bold shadow-md hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3 text-base">
+                        <span>Build Your Combo</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#deals-strip" class="w-full sm:w-auto bg-white hover:bg-amber-50 text-amber-950 text-center px-8 py-4 rounded-2xl font-bold border border-amber-200 shadow-sm transition flex items-center justify-center gap-2 text-base">
+                        <i class="fa-solid fa-tags text-amber-600"></i>
+                        <span>Unlock Today's Deals</span>
+                    </a>
+                </div>
+            </div>
+            <div class="md:col-span-5 flex justify-center relative">
+                <div class="absolute inset-0 bg-gradient-to-tr from-amber-400/20 to-orange-500/10 rounded-full blur-3xl -z-10 w-72 h-72 m-auto"></div>
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" 
+                     alt="Flame Grilled Double Cheeseburger" 
+                     class="w-full max-w-[380px] md:max-w-none object-contain drop-shadow-2xl rounded-3xl transform hover:rotate-2 transition duration-300">
+            </div>
+        </div>
+    </header>
+
+    <section id="deals-strip" class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-3 shadow-md relative z-10"
+             x-data="{ 
+                 timeLeft: 478, 
+                 init() { setInterval(() => { if(this.timeLeft > 0) this.timeLeft-- }, 1000) },
+                 formatTime() {
+                     let m = Math.floor(this.timeLeft / 60);
+                     let s = this.timeLeft % 60;
+                     return `${m}:${s < 10 ? '0' : ''}${s}`;
+                 }
+             }">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+            <div class="flex items-center gap-2.5 flex-wrap justify-center">
+                <span class="bg-white/20 text-white text-xs font-extrabold uppercase px-2 py-0.5 rounded animate-pulse">Flash Deal</span>
+                <p class="text-sm font-semibold tracking-wide">
+                    Get a Free Classic Side + Soft Drink upgrades on all Double Patty Combos! 
+                    <span class="line-through text-orange-200 ml-1.5">$11.45</span> 
+                    <strong class="text-amber-300 ml-1">$6.99</strong>
+                </p>
+            </div>
+            <div class="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full border border-white/10 text-xs sm:text-sm font-bold min-w-[145px] justify-center">
+                <i class="fa-regular fa-clock text-amber-300 animate-spin-slow"></i>
+                <span>Offer ends in: <span class="font-mono text-amber-300 text-base" x-text="formatTime()">07:58</span></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu-explorer" class="max-w-6xl mx-auto px-4 py-16">
+        <div class="text-center md:text-left mb-10 space-y-2">
+            <h2 class="text-3xl brand-font">Explore the Flame-Grilled Menu</h2>
+            <p class="text-amber-900/60 text-sm sm:text-base">Tap to customize ingredients. Add directly to order checkout below.</p>
+        </div>
+
+        <div class="flex border-b border-amber-200/60 overflow-x-auto no-scrollbar gap-2 mb-8 pb-px">
+            <button @click="selectedCategory = 'burgers'" :class="selectedCategory === 'burgers' ? 'border-orange-600 text-orange-600 font-bold' : 'border-transparent text-amber-900/60 hover:text-amber-900'" class="whitespace-nowrap pb-3 px-4 border-b-2 font-medium text-sm transition">
+                <i class="fa-solid fa-hamburger mr-2"></i>Burgers
+            </button>
+            <button @click="selectedCategory = 'sides'" :class="selectedCategory === 'sides' ? 'border-orange-600 text-orange-600 font-bold' : 'border-transparent text-amber-900/60 hover:text-amber-900'" class="whitespace-nowrap pb-3 px-4 border-b-2 font-medium text-sm transition">
+                <i class="fa-solid fa-fries mr-2"></i>Sides & Snacks
+            </button>
+            <button @click="selectedCategory = 'drinks'" :class="selectedCategory === 'drinks' ? 'border-orange-600 text-orange-600 font-bold' : 'border-transparent text-amber-900/60 hover:text-amber-900'" class="whitespace-nowrap pb-3 px-4 border-b-2 font-medium text-sm transition">
+                <i class="fa-solid fa-glass-water mr-2"></i>Beverages
+            </button>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div x-show="selectedCategory === 'burgers'" class="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" alt="Bacon Stack" class="w-full h-44 object-cover rounded-xl mb-4 bg-amber-50">
+                    <div class="flex justify-between items-start gap-2 mb-1">
+                        <h3 class="font-bold text-lg text-[#2A1B14]">The Smokehouse Double</h3>
+                        <span class="bg-orange-50 text-orange-700 font-bold text-sm px-2 py-0.5 rounded-lg">$8.49</span>
+                    </div>
+                    <p class="text-xs text-amber-900/60 line-clamp-2 mb-4">Two flame-grilled beef patties, crispy smoked bacon, melted cheddar, and signature BBQ baseline.</p>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-2 bg-amber-50/50 p-2 rounded-xl text-xs font-semibold text-amber-900 cursor-pointer hover:bg-amber-50">
+                        <input type="checkbox" checked class="accent-orange-600 rounded">
+                        <span>Upgrade to Value Meal (+ Free Drink)</span>
+                    </label>
+                    <button @click="cartItems++; window.location.href='#checkout-flow'" class="w-full bg-orange-600 hover:bg-orange-700 text-white text-xs py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Add & Customize Flow
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="selectedCategory === 'burgers'" class="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80" alt="Classic Cheeseburger" class="w-full h-44 object-cover rounded-xl mb-4 bg-amber-50">
+                    <div class="flex justify-between items-start gap-2 mb-1">
+                        <h3 class="font-bold text-lg text-[#2A1B14]">Classic Royal Cheese</h3>
+                        <span class="bg-orange-50 text-orange-700 font-bold text-sm px-2 py-0.5 rounded-lg">$5.99</span>
+                    </div>
+                    <p class="text-xs text-amber-900/60 line-clamp-2 mb-4">Single premium beef patty, signature crunch pickles, mustard, and unified cheese layer melt.</p>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-2 bg-amber-50/50 p-2 rounded-xl text-xs font-semibold text-amber-900 cursor-pointer hover:bg-amber-50">
+                        <input type="checkbox" class="accent-orange-600 rounded">
+                        <span>Add Extra Cheese Slice (+$0.50)</span>
+                    </label>
+                    <button @click="cartItems++; window.location.href='#checkout-flow'" class="w-full bg-orange-600 hover:bg-orange-700 text-white text-xs py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Add & Customize Flow
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="selectedCategory === 'sides'" class="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between" style="display: none;">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=400&q=80" alt="Fries" class="w-full h-44 object-cover rounded-xl mb-4 bg-amber-50">
+                    <div class="flex justify-between items-start gap-2 mb-1">
+                        <h3 class="font-bold text-lg text-[#2A1B14]">Thick-Cut Salted Fries</h3>
+                        <span class="bg-orange-50 text-orange-700 font-bold text-sm px-2 py-0.5 rounded-lg">$2.99</span>
+                    </div>
+                    <p class="text-xs text-amber-900/60 line-clamp-2 mb-4">Golden, crispy outside, fluff potato core center. Tossed uniformly in fine sea salt crystals.</p>
+                </div>
+                <div class="space-y-3">
+                    <button @click="cartItems++; window.location.href='#checkout-flow'" class="w-full bg-orange-600 hover:bg-orange-700 text-white text-xs py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="selectedCategory === 'drinks'" class="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between" style="display: none;">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=400&q=80" alt="Soda" class="w-full h-44 object-cover rounded-xl mb-4 bg-amber-50">
+                    <div class="flex justify-between items-start gap-2 mb-1">
+                        <h3 class="font-bold text-lg text-[#2A1B14]">Fountain Cola (Ice cold)</h3>
+                        <span class="bg-orange-50 text-orange-700 font-bold text-sm px-2 py-0.5 rounded-lg">$1.99</span>
+                    </div>
+                    <p class="text-xs text-amber-900/60 line-clamp-2 mb-4">Maximum carbonation output served crisp with fresh crushed crystal ice geometry.</p>
+                </div>
+                <div class="space-y-3">
+                    <button @click="cartItems++; window.location.href='#checkout-flow'" class="w-full bg-orange-600 hover:bg-orange-700 text-white text-xs py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="checkout-flow" class="bg-amber-50/60 border-y border-amber-100 py-16">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-10 space-y-2">
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Conversion Engine Optimized</span>
+                <h2 class="text-3xl brand-font">Express 3-Step Checkout Flow</h2>
+                <p class="text-amber-900/60 text-sm">Every extra validation step cuts sales completions by 18%. Here is frictionless speed.</p>
+            </div>
+
+            <div class="flex justify-between items-center mb-8 relative px-4">
+                <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-amber-200 -translate-y-1/2 z-0"></div>
+                
+                <button @click="checkoutStep = 1" class="relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition"
+                     :class="checkoutStep >= 1 ? 'bg-orange-600 text-white' : 'bg-amber-200 text-amber-800'">1</button>
+                <button @click="checkoutStep = 2" class="relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition"
+                     :class="checkoutStep >= 2 ? 'bg-orange-600 text-white' : 'bg-amber-200 text-amber-800'">2</button>
+                <button @click="checkoutStep = 3" class="relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition"
+                     :class="checkoutStep >= 3 ? 'bg-orange-600 text-white' : 'bg-amber-200 text-amber-800'">3</button>
+            </div>
+
+            <div class="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm">
+                
+                <div x-show="checkoutStep === 1">
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-basket-shopping text-orange-600"></i> Step 1: Review Item Configuration</h3>
+                    <div class="divide-y divide-amber-100">
+                        <div class="py-3 flex justify-between items-center text-sm">
+                            <div>
+                                <h4 class="font-bold text-amber-950">Smokehouse Double Combo Upgrade</h4>
+                                <p class="text-xs text-amber-900/50">Thick Fries + Cola Ice Add-on Option Selected</p>
+                            </div>
+                            <span class="font-semibold text-amber-950">$8.49</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-amber-100 flex justify-between items-center font-bold text-base">
+                        <span>Subtotal Estimated</span>
+                        <span class="text-orange-600">$8.49</span>
+                    </div>
+                    <button @click="checkoutStep = 2" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-xl font-bold mt-6 transition flex items-center justify-center gap-2">
+                        <span>Confirm Fulfillment Method</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div x-show="checkoutStep === 2" style="display: none;">
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-truck text-orange-600"></i> Step 2: Choose Fulfillment</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div @click="fulfillmentMethod = 'delivery'" :class="fulfillmentMethod === 'delivery' ? 'border-orange-600 bg-orange-50/30' : 'border-amber-200 hover:bg-amber-50/20'" class="border-2 p-4 rounded-xl cursor-pointer text-center transition">
+                            <i class="fa-solid fa-house-chimney text-2xl mb-2 text-orange-600"></i>
+                            <div class="font-bold text-sm">Direct Delivery</div>
+                            <p class="text-xxs text-amber-900/50 mt-1">15-25 Mins Doorstep</p>
+                        </div>
+                        <div @click="fulfillmentMethod = 'pickup'" :class="fulfillmentMethod === 'pickup' ? 'border-orange-600 bg-orange-50/30' : 'border-amber-200 hover:bg-amber-50/20'" class="border-2 p-4 rounded-xl cursor-pointer text-center transition">
+                            <i class="fa-solid fa-store text-2xl mb-2 text-amber-500"></i>
+                            <div class="font-bold text-sm">Instant Pickup</div>
+                            <p class="text-xxs text-amber-900/50 mt-1">Ready in 7 Mins Counter</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3" x-show="fulfillmentMethod !== ''">
+                        <input type="text" placeholder="Enter Delivery Address / Room / Apartment Line" class="w-full px-4 py-2.5 rounded-xl border border-amber-200 text-sm focus:outline-none focus:border-orange-600 transition">
+                        <input type="tel" placeholder="Mobile Phone Contact Matrix (For Courier Verification)" class="w-full px-4 py-2.5 rounded-xl border border-amber-200 text-sm focus:outline-none focus:border-orange-600 transition">
+                    </div>
+
+                    <div class="flex gap-3 mt-6">
+                        <button @click="checkoutStep = 1" class="w-1/3 bg-amber-100 hover:bg-amber-200 text-amber-900 py-3 rounded-xl font-bold transition">Back</button>
+                        <button @click="checkoutStep = 3" :disabled="fulfillmentMethod === ''" class="w-2/3 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 disabled:hover:bg-orange-600 text-white py-3 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                            <span>Proceed to Payment Matrix</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-show="checkoutStep === 3" style="display: none;">
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-credit-card text-orange-600"></i> Step 3: Secure Quick Payment</h3>
+                    <p class="text-xs text-amber-900/60 mb-4">Guest checkout routing is unlocked. No mandatory account profiles required.</p>
+                    
+                    <div class="space-y-2.5">
+                        <button @click="alert('Simulated Cash on Delivery Route Approved')" class="w-full border border-amber-200 hover:bg-amber-50 p-3 rounded-xl text-sm font-semibold flex items-center justify-between transition">
+                            <span class="flex items-center gap-3"><i class="fa-solid fa-money-bill-wave text-emerald-600 text-lg"></i> Cash on Delivery / Handshake Pay</span>
+                            <i class="fa-solid fa-chevron-right text-xs opacity-40"></i>
+                        </button>
+                        <button @click="alert('Simulated Digital Payment Gateways Active')" class="w-full border border-amber-200 hover:bg-amber-50 p-3 rounded-xl text-sm font-semibold flex items-center justify-between transition">
+                            <span class="flex items-center gap-3"><i class="fa-solid fa-wallet text-orange-500 text-lg"></i> Mobile Wallet Gateways (bKash / Nagad)</span>
+                            <i class="fa-solid fa-chevron-right text-xs opacity-40"></i>
+                        </button>
+                    </div>
+
+                    <button @click="checkoutStep = 2" class="w-full bg-amber-100 hover:bg-amber-200 text-amber-900 py-2.5 rounded-xl font-bold mt-6 transition text-sm">
+                        Modify Delivery / Method Configuration
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-4 py-16">
+        <div class="bg-gradient-to-br from-[#2A1B14] to-[#1F130E] text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl"></div>
+            
+            <div class="space-y-4 max-w-md text-center md:text-left">
+                <span class="bg-amber-400 text-[#2A1B14] text-xs font-black uppercase px-2.5 py-1 rounded-md tracking-wider">Royal Perks Loyalty Program</span>
+                <h2 class="text-2xl sm:text-3xl brand-font leading-tight">Claim Your Free Whopper® Hook Incentive</h2>
+                <p class="text-amber-100/70 text-sm">
+                    Unlock instant 20% cashback profiles, unique stamp card updates, and zero premium membership recurring fees.
+                </p>
+            </div>
+
+            <div class="w-full md:w-auto min-w-[280px] sm:min-w-[340px] bg-white/5 p-4 rounded-2xl border border-white/10 backdrop-blur-sm">
+                <form @submit.prevent="alert('Loyalty profile initialized! Check inbox for Free Whopper voucher confirmation.')" class="space-y-3">
+                    <div>
+                        <input type="email" required placeholder="Enter active primary email address" class="w-full px-4 py-3 rounded-xl bg-white text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    </div>
+                    <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-[#2A1B14] font-extrabold py-3 rounded-xl text-sm transition shadow-sm">
+                        Activate Perks Matrix Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-t border-amber-100 bg-white py-12">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="space-y-1">
+                <div class="text-2xl sm:text-3xl font-extrabold text-orange-600">4.8 / 5.0</div>
+                <div class="text-xs text-amber-900/40 font-bold uppercase tracking-wider">50k+ Reviews Aggregated</div>
+            </div>
+            <div class="space-y-1">
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-950">100%</div>
+                <div class="text-xs text-amber-900/40 font-bold uppercase tracking-wider">Flame-Grilled Beef Credentials</div>
+            </div>
+            <div class="space-y-1">
+                <div class="text-2xl sm:text-3xl font-extrabold text-orange-600">&lt; 22 Min</div>
+                <div class="text-xs text-amber-900/40 font-bold uppercase tracking-wider">Average Zone Transit Speed</div>
+            </div>
+            <div class="space-y-1">
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-950">Zero</div>
+                <div class="text-xs text-amber-900/40 font-bold uppercase tracking-wider">Hidden Agency Service Markup</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#2A1B14] text-amber-100/60 text-xs py-12 border-t border-black/20">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div class="space-y-3">
+                <h4 class="font-bold text-white uppercase text-xs tracking-wider">Product Layouts</h4>
+                <ul class="space-y-1.5 font-medium">
+                    <li><a href="#menu-explorer" class="hover:text-white transition">Flame-Grilled Box Combos</a></li>
+                    <li><a href="#menu-explorer" class="hover:text-white transition">Royal Value Side Additions</a></li>
+                    <li><a href="#deals-strip" class="hover:text-white transition">Corporate Family Discount Strips</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="font-bold text-white uppercase text-xs tracking-wider">Career Parameters</h4>
+                <ul class="space-y-1.5 font-medium">
+                    <li><a href="#" class="hover:text-white transition">Direct Fleet Courier Positions</a></li>
+                    <li><a href="#" class="hover:text-white transition">Kitchen Operations Framework</a></li>
+                    <li><a href="#" class="hover:text-white transition">Corporate Software Architecture</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="font-bold text-white uppercase text-xs tracking-wider">Legal Agreements</h4>
+                <ul class="space-y-1.5 font-medium">
+                    <li><a href="#" class="hover:text-white transition">Data Privacy Retention Policies</a></li>
+                    <li><a href="#" class="hover:text-white transition">Direct Surcharge Transparency Disclosures</a></li>
+                    <li><a href="#" class="hover:text-white transition">Terms of Fulfillment Services</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="font-bold text-white uppercase text-xs tracking-wider">Native Mobile Interface</h4>
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-3 py-2 rounded-xl border border-white/10 text-white transition w-40">
+                        <i class="fa-brands fa-apple text-lg"></i>
+                        <div class="text-left leading-none">
+                            <span class="text-[9px] block text-gray-400">Download on the</span>
+                            <span class="text-xs font-bold">App Store</span>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-3 py-2 rounded-xl border border-white/10 text-white transition w-40">
+                        <i class="fa-brands fa-google-play text-base text-amber-400"></i>
+                        <div class="text-left leading-none">
+                            <span class="text-[9px] block text-gray-400">GET IT ON</span>
+                            <span class="text-xs font-bold">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 border-t border-white/5 pt-6 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-4 text-amber-100/40 font-medium">
+            <p>&copy; 2026 BurgerDirect Delivery Operations Network. Built perfectly to wireframe layout optimization specifications.</p>
+            <p class="text-xxs tracking-widest uppercase bg-white/5 px-2 py-1 rounded">Mobile share priority distribution target: 70%+</p>
+        </div>
+    </footer>
+
+</body>
+</html>
